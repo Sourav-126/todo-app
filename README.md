@@ -119,5 +119,3 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 - The application structure allows for easy addition of new features, such as categorizing to-dos, setting priorities, or integrating with a backend API.
 - The use of URL parameters for search can be extended to other filtering or sorting options.
 - The component-based architecture facilitates the reuse of components and separation of concerns, making it easier to maintain and extend the codebase.
-
-This overview should give a clear understanding of the application's structure and functionality. You can include this in your `README.md` to provide context for the design and implementation of the system.
