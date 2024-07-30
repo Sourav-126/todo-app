@@ -1,9 +1,14 @@
+// importing  all the modules and hooks
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
+const fs = require("fs");
 
 function App() {
+  const Data = JSON.parse(fs.readFileSync("data.json", "utf-8"));
+
+  //creating all the state variables
   const [isCompleteScreen, setIsCompleteScreen] = useState(false);
   const [allTodos, setTodos] = useState([]);
   const [newTitle, setNewTitle] = useState("");
@@ -12,7 +17,9 @@ function App() {
   const [currentEdit, setCurrentEdit] = useState("");
   const [currentEditedItem, setCurrentEditedItem] = useState("");
 
+  // haddle todo function  to add new todo to the local storage
   const handleAddTodo = () => {
+    //assigning the title and description of the todo
     let newTodoItem = {
       title: newTitle,
       description: newDescription,
@@ -20,13 +27,14 @@ function App() {
 
     let updatedTodoArr = [...allTodos];
     updatedTodoArr.push(newTodoItem);
-    setTodos(updatedTodoArr);
+    setTodos(updatedTodoArr); // setting the updated todo arr
     localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
   };
 
+  //handledeletetodo take one param that is index that helps to get the item that is to be deleted and
   const handleDeleteTodo = (index) => {
     let reducedTodo = [...allTodos];
-    reducedTodo.splice(index, 1);
+    reducedTodo.splice(index, 1); //using splice foe deletion of the item
 
     localStorage.setItem("todolist", JSON.stringify(reducedTodo));
     setTodos(reducedTodo);
@@ -42,12 +50,12 @@ function App() {
     let s = now.getSeconds();
     let completedOn =
       dd + "-" + mm + "-" + yyyy + " at " + h + ":" + m + ":" + s;
-
+    //assigning the new object and completed on variable to the filtered item
     let filteredItem = {
       ...allTodos[index],
       completedOn: completedOn,
     };
-
+    // updating trhe array in the local storage
     let updatedCompletedArr = [...completedTodos];
     updatedCompletedArr.push(filteredItem);
     setCompletedTodos(updatedCompletedArr);
@@ -55,6 +63,7 @@ function App() {
     localStorage.setItem("completedTodos", JSON.stringify(updatedCompletedArr));
   };
 
+  //handleDeletecompletedtodo function take index as a parameter and with that index get the item and delete it
   const handleDeleteCompletedTodo = (index) => {
     let reducedTodo = [...completedTodos];
     reducedTodo.splice(index);
@@ -62,7 +71,7 @@ function App() {
     localStorage.setItem("completedTodos", JSON.stringify(reducedTodo));
     setCompletedTodos(reducedTodo);
   };
-
+  //useeffect hook  this help to save everything then if the refresh happen the use effect assign all teh value to the local storage
   useEffect(() => {
     let savedTodo = JSON.parse(localStorage.getItem("todolist"));
     let savedCompletedTodo = JSON.parse(localStorage.getItem("completedTodos"));
@@ -75,11 +84,14 @@ function App() {
     }
   }, []);
 
+  //handle edit take index as a parameter and item
   const handleEdit = (ind, item) => {
     console.log(ind);
     setCurrentEdit(ind);
     setCurrentEditedItem(item);
   };
+
+  // IN this function we are handling update the title functionality and for this we are changing it using the state variable  and passing the value paramater in it
 
   const handleUpdateTitle = (value) => {
     setCurrentEditedItem((prev) => {
@@ -87,12 +99,14 @@ function App() {
     });
   };
 
+  // same goes here this function take the updated value of the description and change it using the sercurrentediteditem
   const handleUpdateDescription = (value) => {
     setCurrentEditedItem((prev) => {
       return { ...prev, description: value };
     });
   };
 
+  // in this function we are setting th updated todo to add to the all the todo array
   const handleUpdateToDo = () => {
     let newToDo = [...allTodos];
     newToDo[currentEdit] = currentEditedItem;
