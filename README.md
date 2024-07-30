@@ -6,6 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm install`
+To install the all the neccessary modules in your local driver
+
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -39,9 +42,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## System design overview
-
-Sure! Here's a brief overview of the system design for the provided to-do list application using React, React Router, and local storage:
 
 ## System Design Overview
 
